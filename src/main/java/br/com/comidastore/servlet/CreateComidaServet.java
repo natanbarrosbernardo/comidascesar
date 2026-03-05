@@ -14,11 +14,18 @@ public class CreateComidaServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String comidaName = request.getParameter("comida-name");
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
 
-        System.out.println(comidaName);
+        response.getWriter().write("{\"comida recomendada\": \"" + comidaName + "\"}");
 
-        request.getRequestDispatcher("index.html").forward(request, response);
 
     }
 
 }
+
+
+
+
+
+
