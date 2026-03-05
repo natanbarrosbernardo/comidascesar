@@ -16,7 +16,6 @@ public class CreateComidaServlet extends HttpServlet {
         String comidaName = request.getParameter("comida-name");
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-
         response.getWriter().write("{\"comida recomendada\": \"" + comidaName + "\"}");
 
 
