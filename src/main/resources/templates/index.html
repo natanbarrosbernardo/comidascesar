@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="[http://www.thymeleaf.org](http://www.thymeleaf.org)">
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastro de Comidasro</title>
+  <style>
+    .error { color: red; font-size: 0.8em; }
+  </style>
+</head>
+<body>
+<h1>Cadastrar Novo Comidasro</h1>
+<form action="#" th:action="${ComidasDTO.id == null || ComidasDTO.id.isEmpty()} ? @{/Comidass} : @{/Comidass/update/{id}(id=${ComidasDTO.id})}" th:object="${ComidasDTO}" method="post">
+    <input type="hidden" th:field="*{id}">
+    <div>
+        <label for="name">Nome:</label>
+        <input type="text" id="name" th:field="*{name}">
+        <span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+    </div>
+    <div>
+        <label for="color">Cor:</label>
+        <input type="text" id="color" th:field="*{color}">
+        <span class="error" th:if="${#fields.hasErrors('color')}" th:errors="*{color}"></span>
+    </div>
+    <div>
+        <button type="submit">Salvar</button>
+    </div>
+</form>
+</body>
+</html>

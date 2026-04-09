@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>comidasros Cadastrados</title>
+</head>
+<body>
+<h1>Dashboard de comidasros</h1>
+<table border="1">
+  <thead>
+  <tr>
+    <th>Nome</th>
+    <th>Cor</th>
+    <th>Ações</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="comidas : ${comidass}">
+    <td th:text="${comidas.name}"></td>
+    <td th:text="${comidas.color}"></td>
+      <td>
+          <a th:href="@{/comidass/edit/{id}(id=${comidas.id})}">Editar</a> |
+          <a th:href="@{/comidass/delete/{id}(id=${comidas.id})}">Remover</a>
+      </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>
