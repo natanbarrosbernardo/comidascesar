@@ -10,47 +10,43 @@ import java.util.UUID;
 @Service
 public class comidasServiceImpl implements ComidasService{
 
-    private List<ComidasDTO> Comidas;
+    private List<ComidasDTO> repositorioEmMemoria;
 
-    public ComidasServiceImpl(){
-       Comidas = new ArrayList<ComidasDTO>();
+    public ComidasServiceImpl() {
+        this.repositorioEmMemoria = new ArrayList<>();
     }
 
     @Override
     public List<ComidasDTO> findAll() {
-        return Comidas;
+        return this.repositorioEmMemoria;
     }
 
     @Override
-    public void save(ComidasDTO ComidasDTO) {
-        // Valida null e vazio, pois coloquei um input hidden no index.html em form.
-        if (ComidasDTO.getId() == null || ComidasDTO.getId().isEmpty()) {
-
-            ComidasDTO.setId(UUID.randomUUID().toString());
+    public void save(ComidasDTO novaComida) {
+        boolean isIdAusente = novaComida.getId() == null || novaComida.getId().trim().isEmpty();
+        if (isIdAusente) {String idGerado = UUID.randomUUID().toString();
+            novaComida.setId(idGerado);
         }
-        this.Comidas.add(ComidasDTO);
+        this.repositorioEmMemoria.add(novaComida);
     }
 
     @Override
-    public void deleteById(String id) {
-
-        this.Comidas.removeIf(Comidas -> Comidas.getId().equals(id));
+    public void deleteById(String codigo) {
+        this.repositorioEmMemoria.removeIf(c -> c.getId().equals(codigo));
     }
 
     @Override
-    public void update(String id, ComidasDTO ComidasDTO) {
-
-        this.Comidas.replaceAll(Comidas -> Comidas.getId().equals(id) ? ComidasDTO : Comidas);
-
+    public void update(String codigo, ComidasDTO comidaAtualizada) {
+        this.repositorioEmMemoria.replaceAll(itemAtual -> 
+            itemAtual.getId().equals(codigo) ? comidaAtualizada : itemAtual
+        );
     }
 
-    
     @Override
-    public ComidasDTO findById(String id) {
-        return this.Comidas.stream()
-                .filter(Comidas -> Comidas.getId().equals(id))
+    public ComidasDTO findById(String codigo) {
+        return this.repositorioEmMemoria.stream()
+                .filter(item -> item.getId().equals(codigo))
                 .findFirst()
                 .orElse(null);
     }
-
 }
