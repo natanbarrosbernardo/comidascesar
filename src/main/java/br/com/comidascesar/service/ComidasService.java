@@ -13,8 +13,6 @@ public interface ComidasService {
     void deleteById(String id);
 
     void update(String id, ComidasDTO comidasDTO);
-
-    //Busca o comidasro pelo Id.
     ComidasDTO findById(String id);
 
 }
